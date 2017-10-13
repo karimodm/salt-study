@@ -9,7 +9,7 @@
 # Per default, the master will automatically include all config files
 # from master.d/*.conf (master.d is a directory in the same directory
 # as the main master config file).
-default_include: *.conf
+#default_include: *.conf
 
 # The address of the interface to bind to:
 #interface: 0.0.0.0
@@ -441,7 +441,7 @@ default_include: *.conf
 ##########################################
 
 # Pass in an alternative location for the salt-ssh roster file
-roster_file: ./roster
+roster_file: ./conf/roster
 
 # Define locations for roster files so they can be chosen when using Salt API.
 # An administrator can place roster files into these locations. Then when
@@ -482,7 +482,7 @@ ssh_log_file: ./logs/ssh
 # salt-ssh calls. The local minion config is not used for salt-ssh. Can be
 # overridden on a per-minion basis in the roster ()
 #ssh_minion_opts:
-#  gpg_keydir: /root/gpg
+gpg_keydir: ./etc/salt/gpgkeys
 
 # Set this to True to default to using ~/.ssh/id_rsa for salt-ssh
 # authentication with minions
@@ -2792,3 +2792,14 @@ ssh_log_file: ./logs/ssh
 roster_defaults:
   user: root
   tty: True
+
+root_dir: .
+file_roots:
+  base:
+    - ./states
+    - ./formulas/haproxy-formula
+    - ./formulas/mongodb-formula
+    - ./formulas/nginx-formula
+pillar_roots:
+  base:
+    - ./pillar

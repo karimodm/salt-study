@@ -1,0 +1,11 @@
+[Unit]
+Description=FileBeat logshipping to ELK stack
+
+[Service]
+Type=simple 
+ExecStart=/usr/bin/filebeat.sh -c /etc/filebeat/filebeat.yml
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

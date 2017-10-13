@@ -1,0 +1,21 @@
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:fail2ban-ssh - [0:0]
+-A INPUT -p tcp -m multiport --dports 22 -j fail2ban-ssh
+# Accepts everything from loopback
+-A INPUT -i lo -j ACCEPT
+-A INPUT -p tcp -m multiport --dports 443,22 -j ACCEPT
+-A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+# Expose HAPRoxy Stats port and Kibana for logs
+{%- for admin_ip in salt['pillar.get']('common:admin_ips') %}
+-A INPUT -p tcp -s {{ admin_ip }}/32 -m multiport --dports 12000,8081 -j ACCEPT
+{%- endfor %}
+# Expose MongoDB, nginx, and LogStash port
+{%- for fellow_box in ['av-test01','av-test02','av-test03'] %}
+-A INPUT -p tcp -s {{ fellow_box }}/32 -m multiport --dports 27017,8080,5044 -j ACCEPT
+{%- endfor %}
+-A INPUT -j DROP
+-A fail2ban-ssh -j RETURN
+COMMIT

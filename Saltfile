@@ -1,0 +1,7 @@
+salt-ssh:
+  config_dir: ./conf
+  extra_filerefs:
+    - salt://mongodb/map.jinja
+    - salt://mongodb/defaults.yaml
+    - salt://mongodb/osmap.yaml
+    - salt://mongodb/codenamemap.yaml

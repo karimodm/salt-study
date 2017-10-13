@@ -1,0 +1,11 @@
+[Unit]
+Description=ELK stack
+Requires=docker.socket
+After=docker.socket
+
+[Service]
+Type=simple 
+ExecStart=/usr/local/bin/docker-compose -f /etc/elkstack.yml up
+
+[Install]
+WantedBy=multi-user.target

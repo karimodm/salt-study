@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. /app/bin/activate
+
+gunicorn -p /app/gunicorn.pid -k aiohttp.worker.GunicornWebWorker --chdir /app/ -b 127.0.0.1:9001 wsgi:app

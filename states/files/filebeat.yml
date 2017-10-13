@@ -1,0 +1,11 @@
+filebeat:
+  prospectors:
+    # Each - is a prospector. Below are the prospector specific configurations
+    -
+      paths:
+        - "/app/logs/*"
+        - "/var/log/nginx/*"
+      input_type: log
+output:
+  logstash:
+    hosts: ["av-test01:5044"]

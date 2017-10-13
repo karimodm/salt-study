@@ -1,9 +1,13 @@
 base:
   '*':
-    - haproxy: master
-  'av-01':
-    - mongodb: master
-  'av-02':
-    - mongodb: replica
-  'av-03':
-    - mongodb: arbiter
+    - common
+    - haproxy
+    - nginx
+    - mongodb
+    - secrets
+  av-test01:
+    - secrets_av-test-01
+  av-test02:
+    - secrets_av-test-02
+  av-test03:
+    - secrets_av-test-03

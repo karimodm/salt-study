@@ -42,6 +42,18 @@ global
 {%- if salt['pillar.get']('haproxy:global:stats:enable', 'no') == True %}
     stats socket {{ salt['pillar.get']('haproxy:global:stats:socketpath', '/tmp/ha_stats.sock') }} mode {{ salt['pillar.get']('haproxy:global:stats:mode', '660') }} level {{ salt['pillar.get']('haproxy:global:stats:level', 'operator') }}
 {%- endif %}
+{%- if salt['pillar.get']('haproxy:global:httpstats:enable', 'no') == True %}
+
+listen stats 
+  bind *:{{ salt['pillar.get']('haproxy:global:httpstats:port')}} ssl crt /etc/ssl/private/hostcert.pem
+  mode http
+  stats enable
+  stats hide-version
+  stats realm Haproxy\ Statistics
+  stats uri /
+  stats auth {{ salt['pillar.get']('secrets:haproxy_statsuser') }}:{{ salt['pillar.get']('secrets:haproxy_statspass') }}
+
+{%- endif %}
 {%- if 'maxconn' in salt['pillar.get']('haproxy:global', {}) %}
     maxconn {{ salt['pillar.get']('haproxy:global:maxconn') }}
 {%- endif %}

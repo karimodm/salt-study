@@ -1,0 +1,14 @@
+[Unit]
+Description=Gunicorn to serve API
+After=networking.service
+Requires=networking.service
+
+[Service]
+Type=simple 
+ExecStart=/app/bin/gunicorn
+ExecStop=/bin/kill $(cat /app/gunicorn.pid)
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

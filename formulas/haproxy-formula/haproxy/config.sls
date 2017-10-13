@@ -1,3 +1,6 @@
+include:
+  - haproxy.service
+
 haproxy.config:
  file.managed:
    - name: {{ salt['pillar.get']('haproxy:config_file_path', '/etc/haproxy/haproxy.cfg') }}

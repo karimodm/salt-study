@@ -1,1 +1,4 @@
+etc/
 logs/
+var/
+secrets/

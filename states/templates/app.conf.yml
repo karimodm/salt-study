@@ -1,0 +1,25 @@
+{%- set mongo_user = salt['pillar.get']('secrets:mongo_user') %}
+{%- set mongo_pass = salt['pillar.get']('secrets:mongo_pass') %}
+# Mongo configuration
+mongo:
+  # Username and password to connect
+  username: "{{ mongo_user }}"
+  password: "{{ mongo_pass }}"
+  # List of replicas to connect
+  replica_hosts:
+      replica1:
+          # List of hosts of the replica set
+          hosts: [
+            "av-test01",
+            "av-test02",
+            "av-test03"
+          ]
+          # Name ot the replica set
+          replica_set: "rs0"
+          active: true
+  # Port to connect (optional, default 27017)
+  port: 27017
+  # Host to connect (optional, default localhost)
+  #host: "localhost"
+  db: "app"
+
